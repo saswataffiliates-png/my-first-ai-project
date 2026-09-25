@@ -1,13 +1,18 @@
+const fruitButton = document.querySelector("#fruitButton");
+
+const message = document.querySelector("#message");
+
+fruitButton.addEventListener("click", showFruits);
+
 function showFruits() {
 
-    let fruits = [
+    const fruits = [
         "Apple",
         "Mango",
         "Banana",
         "Orange"
     ];
 
-    document.querySelector("#message").textContent =
-        fruits.join(" | ");
+    message.textContent = fruits.join(" | ");
 
 }
