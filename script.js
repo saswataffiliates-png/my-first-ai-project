@@ -1,3 +1,6 @@
 function sayHello() {
-    alert("Hello! You just ran your first JavaScript program!");
+
+    document.querySelector("h2").textContent =
+        "🎉 You just changed the webpage with JavaScript!";
+
 }
