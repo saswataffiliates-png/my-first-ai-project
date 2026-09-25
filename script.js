@@ -1,17 +1,13 @@
-let age = 20;
+function showFruits() {
 
-function sayHello() {
+    let fruits = [
+        "Apple",
+        "Mango",
+        "Banana",
+        "Orange"
+    ];
 
-    if (age >= 18) {
-
-        document.querySelector("#message").textContent =
-            "You are an adult.";
-
-    } else {
-
-        document.querySelector("#message").textContent =
-            "You are under 18.";
-
-    }
+    document.querySelector("#message").textContent =
+        fruits.join(" | ");
 
 }
