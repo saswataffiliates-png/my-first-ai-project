@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>My AI Lab</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <script src="script.js" defer></script>
 
 </head>
 
@@ -15,13 +18,47 @@
 
     <h1>🤖 My AI Lab</h1>
 
-    <h2 id="message">
-        Frontend → Backend
-    </h2>
+    <h2>Send Data to API</h2>
 
-    <button id="connectButton">
-        Talk to Backend
+    <label for="name">
+        Your name:
+    </label>
+
+    <br><br>
+
+    <input
+        id="name"
+        type="text"
+        placeholder="Enter your name"
+    >
+
+    <br><br><br>
+
+    <label for="message">
+        Your message:
+    </label>
+
+    <br><br>
+
+    <input
+        id="message"
+        type="text"
+        placeholder="Enter your message"
+    >
+
+    <br><br>
+
+    <button id="sendButton">
+        Send to API
     </button>
+
+    <h3>Backend response:</h3>
+
+    <p id="result">
+        Nothing sent yet.
+    </p>
+
+    <script src="script.js"></script>
 
 </body>
 
