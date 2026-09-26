@@ -1,59 +1,93 @@
-const loadButton = document.querySelector("#loadButton");
+const nameInput =
+    document.querySelector("#nameInput");
 
-const message = document.querySelector("#message");
+const messageInput =
+    document.querySelector("#messageInput");
 
-const productList = document.querySelector("#productList");
+const sendButton =
+    document.querySelector("#sendButton");
+
+const message =
+    document.querySelector("#message");
 
 
-loadButton.addEventListener("click", getProducts);
+sendButton.addEventListener(
+    "click",
+    sendData
+);
 
 
-async function getProducts() {
+async function sendData() {
 
-    message.textContent = "Loading products...";
+    const name =
+        nameInput.value.trim();
 
-    productList.innerHTML = "";
+    const userMessage =
+        messageInput.value.trim();
+
+
+    if (name === "" || userMessage === "") {
+
+        message.textContent =
+            "Please enter both fields.";
+
+        return;
+    }
+
+
+    const dataToSend = {
+
+        name: name,
+
+        message: userMessage
+
+    };
+
+
+    message.textContent =
+        "Sending...";
 
 
     try {
 
         const response = await fetch(
-            "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json"
+            "https://jsonplaceholder.typicode.com/posts",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify(dataToSend)
+            }
         );
 
 
         if (!response.ok) {
 
-            throw new Error("Could not get the products");
-
-        }
-
-
-        const data = await response.json();
-
-
-        message.textContent =
-            "Products from API";
-
-
-        for (const product of data) {
-
-            const productElement =
-                document.createElement("p");
-
-
-            productElement.textContent =
-                product.name;
-
-
-            productList.appendChild(
-                productElement
+            throw new Error(
+                "Could not send data"
             );
 
         }
 
 
-    } catch (error) {
+        const result =
+            await response.json();
+
+
+        console.log(result);
+
+
+        message.textContent =
+            "Data sent successfully!";
+
+    }
+
+    catch (error) {
 
         message.textContent =
             "Something went wrong.";
