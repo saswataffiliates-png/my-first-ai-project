@@ -1,96 +1,44 @@
-const nameInput =
-    document.querySelector("#nameInput");
-
-const messageInput =
-    document.querySelector("#messageInput");
-
-const sendButton =
-    document.querySelector("#sendButton");
+const connectButton =
+    document.querySelector("#connectButton");
 
 const message =
     document.querySelector("#message");
 
 
-sendButton.addEventListener(
+connectButton.addEventListener(
     "click",
-    sendData
+    talkToBackend
 );
 
 
-async function sendData() {
-
-    const name =
-        nameInput.value.trim();
-
-    const userMessage =
-        messageInput.value.trim();
-
-
-    if (name === "" || userMessage === "") {
-
-        message.textContent =
-            "Please enter both fields.";
-
-        return;
-    }
-
-
-    const dataToSend = {
-
-        name: name,
-
-        message: userMessage
-
-    };
-
+async function talkToBackend() {
 
     message.textContent =
-        "Sending...";
+        "Talking to backend...";
 
 
     try {
 
-        const response = await fetch(
-            "https://jsonplaceholder.typicode.com/posts",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:
-                    JSON.stringify(dataToSend)
-            }
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Could not send data"
+        const response =
+            await fetch(
+                "http://localhost:3000"
             );
 
-        }
 
-
-        const result =
+        const data =
             await response.json();
 
 
-        console.log(result);
-
-
         message.textContent =
-            "Data sent successfully!";
+            data.message;
+
 
     }
 
     catch (error) {
 
         message.textContent =
-            "Something went wrong.";
+            "Could not connect to backend.";
 
         console.error(error);
 
