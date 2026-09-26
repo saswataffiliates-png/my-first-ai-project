@@ -2,13 +2,17 @@ const loadButton = document.querySelector("#loadButton");
 
 const message = document.querySelector("#message");
 
+const productList = document.querySelector("#productList");
 
-loadButton.addEventListener("click", getProduct);
+
+loadButton.addEventListener("click", getProducts);
 
 
-async function getProduct() {
+async function getProducts() {
 
-    message.textContent = "Loading...";
+    message.textContent = "Loading products...";
+
+    productList.innerHTML = "";
 
 
     try {
@@ -20,7 +24,7 @@ async function getProduct() {
 
         if (!response.ok) {
 
-            throw new Error("Could not get the data");
+            throw new Error("Could not get the products");
 
         }
 
@@ -29,7 +33,24 @@ async function getProduct() {
 
 
         message.textContent =
-            "Product: " + data[0].name;
+            "Products from API";
+
+
+        for (const product of data) {
+
+            const productElement =
+                document.createElement("p");
+
+
+            productElement.textContent =
+                product.name;
+
+
+            productList.appendChild(
+                productElement
+            );
+
+        }
 
 
     } catch (error) {
