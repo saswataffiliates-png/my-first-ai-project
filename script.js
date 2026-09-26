@@ -1,47 +1,58 @@
-const connectButton =
-    document.querySelector("#connectButton");
+const button = document.querySelector("#sendButton");
 
-const message =
-    document.querySelector("#message");
+const nameInput = document.querySelector("#name");
+
+const messageInput = document.querySelector("#message");
+
+const result = document.querySelector("#result");
 
 
-connectButton.addEventListener(
+button.addEventListener(
     "click",
-    talkToBackend
-);
+    async () => {
+
+        const name = nameInput.value;
+
+        const message = messageInput.value;
 
 
-async function talkToBackend() {
-
-    message.textContent =
-        "Talking to backend...";
+        result.textContent = "Sending...";
 
 
-    try {
+        try {
 
-        const response =
-            await fetch(
-                "http://localhost:3000"
+            const response = await fetch(
+                "/api/message",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: name,
+                        message: message
+                    })
+                }
             );
 
 
-        const data =
-            await response.json();
+            const data = await response.json();
 
 
-        message.textContent =
-            data.message;
+            result.textContent =
+                data.reply;
 
+        } catch (error) {
 
-    }
+            result.textContent =
+                "Something went wrong.";
 
-    catch (error) {
+            console.error(error);
 
-        message.textContent =
-            "Could not connect to backend.";
-
-        console.error(error);
+        }
 
     }
-
-}
+);
