@@ -1,36 +1,16 @@
-const nameInput = document.querySelector("#nameInput");
+async function getProducts() {
 
-const ageInput = document.querySelector("#ageInput");
+    const response = await fetch(
+        "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json"
+    );
 
-const submitButton = document.querySelector("#submitButton");
-
-const message = document.querySelector("#message");
-
-submitButton.addEventListener("click", showPerson);
-
-function showPerson() {
-
-    const name = nameInput.value;
-
-    const age = ageInput.value;
-
-    if (name === "" || age === "") {
-
-        message.textContent =
-            "Please enter both your name and age.";
-
-    } else {
-
-        const person = {
-            name: name,
-            age: age
-        };
-
-        message.textContent =
-            "Hello " + person.name +
-            "! You are " + person.age +
-            " years old.";
-
+    if (!response.ok) {
+        throw new Error("Could not get the data");
     }
 
+    const data = await response.json();
+
+    console.log(data);
 }
+
+getProducts();
